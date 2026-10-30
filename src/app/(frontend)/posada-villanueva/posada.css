@@ -1,0 +1,228 @@
+.posada-request {
+  margin: 4rem 0;
+}
+
+.posada-request__intro {
+  margin-top: 2rem;
+}
+
+.posada-request__intro h2 {
+  margin: 0.5rem 0;
+  text-align: center;
+}
+
+.posada-request__intro p {
+  margin: 0.5rem 0;
+  text-align: center;
+}
+
+.posada-form {
+  margin-top: 44px;
+  max-width: 850px;
+  margin-inline: auto;
+  padding: clamp(1.25rem, 4vw, 3rem);
+  border: 1px solid #e5e7eb;
+  border-radius: 1.25rem;
+  background: #fff;
+  color: #172033;
+  box-shadow: 0 20px 60px rgb(0 0 0 / 8%);
+}
+
+.posada-form__header {
+  margin-bottom: 2rem;
+}
+
+.posada-form__header > span {
+  color: var(--color-primary);
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.posada-form__header h2 {
+  margin: 0.5rem 0;
+  font-size: clamp(1.7rem, 4vw, 2.5rem);
+}
+
+.posada-form__header p {
+  color: #626b7b;
+  font-size: 0.9rem;
+}
+
+.posada-form__progress {
+  height: 6px;
+  margin-top: 1rem;
+  overflow: hidden;
+  border-radius: 99px;
+  background: #e9edf3;
+}
+
+.posada-form__progress span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--color-primary);
+  transition: width 200ms ease;
+}
+
+.posada-form__fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+.posada-form__fields > label {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  font-weight: 650;
+}
+
+.posada-form__fields .posada-form__full {
+  grid-column: 1 / -1;
+}
+
+.posada-form input:not([type='checkbox']),
+.posada-form select,
+.posada-form textarea {
+  width: 100%;
+  min-height: 48px;
+  padding: 0.8rem 0.9rem;
+  border: 1px solid #cbd2dc;
+  border-radius: 0.6rem;
+  background: #fff;
+  color: #172033;
+  font: inherit;
+}
+
+.posada-form textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.posada-form input:focus-visible,
+.posada-form select:focus-visible,
+.posada-form textarea:focus-visible,
+.posada-form button:focus-visible,
+.posada-form a:focus-visible {
+  outline: 3px solid rgb(0 95 207 / 25%);
+  outline-offset: 2px;
+  border-color: var(--color-primary);
+}
+
+.posada-form__fields small {
+  color: #626b7b;
+  font-size: 0.8rem;
+  font-weight: 400;
+}
+
+.posada-form__error {
+  display: block;
+  margin-top: 0.35rem;
+  color: var(--color-red);
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.posada-form__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+
+.posada-form .button {
+  display: inline-flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  padding: 0.8rem 1.4rem;
+  border: 1px solid transparent;
+  border-radius: 0.6rem;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 750;
+}
+
+.posada-form .button-primary {
+  color: #fff;
+  background: var(--color-primary);
+}
+
+.posada-form .button-secondary {
+  border-color: #cbd2dc;
+  color: #172033;
+  background: #fff;
+}
+
+.posada-form button:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+.posada-form__consent {
+  display: flex;
+  flex-direction: row !important;
+  align-items: flex-start;
+  gap: 0.75rem !important;
+  font-weight: 400 !important;
+  line-height: 1.6;
+}
+
+.posada-form__consent input {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 auto;
+  margin-top: 0.15rem;
+}
+
+.posada-form__consent a {
+  display: block;
+  margin-top: 0.4rem;
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
+.posada-form__honeypot {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.posada-form__success {
+  max-width: 850px;
+  margin-inline: auto;
+  padding: 2rem;
+  border-radius: 1rem;
+  background: #f0fdf4;
+  color: #14532d;
+}
+
+@media (max-width: 640px) {
+  .posada-form {
+    padding: 1.25rem;
+    border-radius: 0.9rem;
+  }
+
+  .posada-form__fields {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .posada-form__fields .posada-form__full {
+    grid-column: auto;
+  }
+
+  .posada-form__actions {
+    flex-direction: column-reverse;
+  }
+
+  .posada-form__actions .button {
+    width: 100%;
+  }
+}

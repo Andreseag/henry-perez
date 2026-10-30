@@ -1,0 +1,1226 @@
+/* ============================================
+   HENRY PÉREZ — DESIGN TOKENS
+   Reutiliza las variables del CSS global
+   ============================================ */
+
+.page {
+  --hp-blue: var(--color-primary);
+  --hp-blue-dark: var(--color-primary-dark);
+  --hp-yellow: var(--color-yellow);
+  --hp-ink: var(--color-black);
+  --hp-muted: var(--color-text);
+  --hp-border: var(--color-border);
+  --hp-paper: var(--color-gray-100);
+
+  --hp-container: var(--container-width);
+
+  color: var(--color-text);
+  font-family: var(--font-body);
+  background: var(--color-white);
+}
+
+/* ============================================
+   TIPOGRAFÍA
+   ============================================ */
+
+.page h1,
+.page h2,
+.page h3,
+.page h4 {
+  font-family: var(--font-heading);
+  font-weight: 400;
+}
+
+.page p,
+.page li,
+.page a,
+.page button,
+.page span {
+  font-family: var(--font-body);
+}
+
+.page h1,
+.page h2,
+.page h3,
+.page h4,
+.page p {
+  margin-top: 0;
+}
+
+.page a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.page button {
+  font: inherit;
+}
+
+.page * {
+  box-sizing: border-box;
+}
+
+.page a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.container {
+  width: min(1180px, calc(100% - 48px));
+  margin-inline: auto;
+}
+
+.demoNotice {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 20px;
+  background: #fff4d9;
+  color: #73500b;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.025em;
+}
+
+.demoDot {
+  width: 8px;
+  height: 8px;
+  flex: 0 0 auto;
+  background: #d68a00;
+  border-radius: 50%;
+}
+
+.hero {
+  position: relative;
+  padding: 82px 0 28px;
+  color: white;
+  background: var(--hp-blue-dark);
+  isolation: isolate;
+}
+
+.heroPattern {
+  position: absolute;
+  z-index: -1;
+  inset: 0 0 0 45%;
+  opacity: 0.17;
+  background-image: radial-gradient(#a9c7f0 1px, transparent 1px);
+  background-size: 23px 23px;
+  mask-image: linear-gradient(90deg, transparent, #000);
+}
+
+.heroGrid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  align-items: center;
+  gap: 72px;
+}
+
+.heroCopy {
+  max-width: 650px;
+  padding-bottom: 24px;
+}
+
+.eyebrow {
+  margin: 0 0 18px;
+  color: var(--hp-blue);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  line-height: 1.6;
+}
+
+.hero .eyebrow {
+  color: var(--hp-yellow);
+}
+
+.hero h1 {
+  margin: 0;
+  font-size: clamp(42px, 5.6vw, 72px);
+  font-weight: 800;
+  line-height: 1.04;
+  letter-spacing: -0.055em;
+}
+
+.hero h1 span {
+  color: var(--hp-yellow);
+}
+
+.heroLead {
+  max-width: 570px;
+  margin: 28px 0 0;
+  color: #fff;
+  font-size: clamp(18px, 2vw, 22px);
+  line-height: 1.65;
+}
+
+.heroDescription {
+  max-width: 560px;
+  margin: 14px 0 0;
+  color: #c5d2e5;
+  font-size: 15px;
+  line-height: 1.85;
+}
+
+.heroActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 30px;
+}
+
+.buttonPrimary,
+.buttonSecondary {
+  display: inline-flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 12px 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 750;
+  transition:
+    transform 180ms ease,
+    background 180ms ease;
+}
+
+.buttonPrimary {
+  color: #17263b !important;
+  background: var(--hp-yellow);
+}
+
+.buttonPrimary:hover {
+  background: #ffc84f;
+  transform: translateY(-2px);
+}
+
+.buttonSecondary {
+  color: #fff !important;
+  border-color: #637d9e;
+  background: transparent;
+}
+
+.buttonSecondary:hover {
+  background: #ffffff12;
+}
+
+.heroVisual {
+  position: relative;
+  min-width: 0;
+  padding: 12px 12px 35px 20px;
+}
+
+.portraitPlaceholder {
+  position: relative;
+  display: flex;
+  min-height: 430px;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: linear-gradient(145deg, #d9e5f4 0%, #91adcf 52%, #496b99 100%);
+}
+
+.portraitPlaceholder::before,
+.portraitPlaceholder::after {
+  position: absolute;
+  content: '';
+  border: 1px solid #ffffff4a;
+  border-radius: 50%;
+}
+
+.portraitPlaceholder::before {
+  width: 330px;
+  height: 330px;
+}
+
+.portraitPlaceholder::after {
+  width: 420px;
+  height: 420px;
+}
+
+.portraitMonogram {
+  z-index: 1;
+  color: #ffffffcc;
+  font-size: clamp(100px, 15vw, 180px);
+  font-weight: 850;
+  letter-spacing: -0.09em;
+}
+
+.portraitCaption {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 2;
+  padding: 34px 20px 17px;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 750;
+  line-height: 1.6;
+  background: linear-gradient(transparent, #09234ad9);
+}
+
+.portraitCaption small {
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.heroFloatingCard {
+  position: absolute;
+  right: -16px;
+  bottom: 4px;
+  display: flex;
+  max-width: 310px;
+  align-items: center;
+  gap: 13px;
+  padding: 17px;
+  color: var(--hp-ink);
+  background: white;
+  box-shadow: 0 16px 42px #001a3b2e;
+}
+
+.floatingIcon {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  flex: 0 0 auto;
+  place-items: center;
+  color: var(--hp-blue-dark);
+  background: #e9f1fc;
+  font-size: 23px;
+}
+
+.heroFloatingCard strong {
+  font-size: 13px;
+}
+
+.heroFloatingCard p {
+  margin: 5px 0 0;
+  color: var(--hp-muted);
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.heroBottom {
+  display: flex;
+  align-items: center;
+  gap: 17px;
+  margin-top: 66px;
+  color: #c5d2e5;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+.heroBottomLine {
+  width: 34px;
+  height: 1px;
+  background: #ffffff45;
+}
+
+.sectionNav {
+  position: sticky;
+  z-index: 10;
+  top: 0;
+  border-bottom: 1px solid var(--hp-border);
+  background: #ffffffed;
+  backdrop-filter: blur(12px);
+}
+
+.sectionNav > div {
+  display: flex;
+  gap: 30px;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.sectionNav a {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 8px;
+  padding: 19px 0;
+  color: #48566b;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.sectionNav a span {
+  color: var(--hp-blue);
+  font-size: 10px;
+}
+
+.sectionNav a:hover {
+  color: var(--hp-blue);
+}
+
+.section {
+  padding: 94px 0;
+  scroll-margin-top: 72px;
+}
+
+.sectionHeading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 42px;
+  margin-bottom: 45px;
+}
+
+.sectionHeading h2 {
+  margin: 0;
+  font-size: clamp(32px, 4vw, 47px);
+  font-weight: 800;
+  line-height: 1.13;
+  letter-spacing: -0.045em;
+}
+
+.sectionHeading h2 span {
+  color: var(--hp-blue);
+}
+
+.sectionIntro {
+  max-width: 420px;
+  margin: 0;
+  color: var(--hp-muted);
+  font-size: 14px;
+  line-height: 1.9;
+}
+
+.timeline {
+  display: grid;
+  gap: 18px;
+}
+
+.timelineItem {
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr);
+  gap: 17px;
+}
+
+.timelineRail {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.timelineRail::after {
+  position: absolute;
+  top: 48px;
+  bottom: -25px;
+  left: 50%;
+  width: 1px;
+  content: '';
+  background: #cbd9ec;
+}
+
+.timelineItem:last-child .timelineRail::after {
+  display: none;
+}
+
+.timelineRail span {
+  display: grid;
+  width: 43px;
+  height: 43px;
+  place-items: center;
+  border: 1px solid #c9d8ec;
+  border-radius: 50%;
+  color: var(--hp-blue);
+  background: #eff5fd;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.timelineCard {
+  padding: 27px 30px;
+  border: 1px solid var(--hp-border);
+  background: #fff;
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.timelineCard:hover {
+  border-color: #c3d7f2;
+  box-shadow: 0 12px 35px #193c6810;
+}
+
+.timelineYear {
+  color: var(--hp-blue);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+.timelineCard h3 {
+  margin: 10px 0 5px;
+  font-size: 21px;
+  line-height: 1.4;
+}
+
+.timelineCard p {
+  margin: 10px 0 0;
+  color: var(--hp-muted);
+  font-size: 13px;
+  line-height: 1.85;
+}
+
+.timelineCard .timelineInstitution {
+  margin-top: 0;
+  color: #445873;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.politicalSection {
+  background: var(--hp-paper);
+}
+
+.politicalGrid {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  align-items: start;
+  gap: 55px;
+}
+
+.politicalStatement {
+  position: sticky;
+  top: 100px;
+  padding: 32px;
+  color: #fff;
+  background: var(--hp-blue-dark);
+}
+
+.statementMark {
+  display: block;
+  color: var(--hp-yellow);
+  font-size: 76px;
+  line-height: 0.9;
+}
+
+.politicalStatement h3 {
+  margin: 20px 0 12px;
+  font-size: 28px;
+  line-height: 1.28;
+  letter-spacing: -0.035em;
+}
+
+.politicalStatement p {
+  color: #c5d2e5;
+  font-size: 14px;
+  line-height: 1.85;
+}
+
+.statementFootnote {
+  display: block;
+  margin-top: 32px;
+  color: var(--hp-yellow);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  line-height: 1.7;
+}
+
+.highlightsSection {
+  color: #fff;
+  background: #09244a;
+}
+
+.highlightsSection .eyebrow {
+  color: var(--hp-yellow);
+}
+
+.highlightsSection .sectionIntro {
+  color: #c5d2e5;
+}
+
+.highlightsSection .sectionHeading h2 span {
+  color: var(--hp-yellow);
+}
+
+.highlightCarousel {
+  display: grid;
+  grid-template-columns: 0.95fr 1.05fr;
+  min-height: 350px;
+  background: #fff;
+  color: var(--hp-ink);
+}
+
+.highlightVisual {
+  position: relative;
+  display: flex;
+  min-height: 350px;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  padding: 28px;
+  color: #fff;
+  background:
+    radial-gradient(circle at 80% 22%, #ffffff20 0 2px, transparent 3px),
+    linear-gradient(145deg, #126bd0, #062b5d);
+  background-size:
+    22px 22px,
+    auto;
+}
+
+.highlightNumber {
+  font-size: clamp(88px, 13vw, 150px);
+  font-weight: 850;
+  line-height: 1;
+  letter-spacing: -0.08em;
+  opacity: 0.95;
+}
+
+.highlightVisualLabel {
+  position: relative;
+  align-self: flex-start;
+  padding: 8px 12px;
+  color: var(--hp-ink);
+  background: var(--hp-yellow);
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.highlightVisualText {
+  max-width: 220px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  line-height: 1.8;
+}
+
+.highlightContent {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 37px;
+}
+
+.contentEyebrow {
+  color: var(--hp-blue);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.highlightContent h3 {
+  margin: 18px 0 12px;
+  font-size: clamp(25px, 3vw, 36px);
+  line-height: 1.2;
+  letter-spacing: -0.04em;
+}
+
+.highlightContent > p {
+  color: var(--hp-muted);
+  font-size: 14px;
+  line-height: 1.9;
+}
+
+.carouselControls {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 28px;
+}
+
+.carouselCounter {
+  color: var(--hp-blue);
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.carouselCounter span {
+  color: #9aa6b5;
+  font-size: 12px;
+}
+
+.carouselButtons {
+  display: flex;
+  gap: 8px;
+}
+
+.carouselButtons button {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  border: 1px solid var(--hp-border);
+  color: var(--hp-ink);
+  background: white;
+  cursor: pointer;
+  font-size: 19px;
+}
+
+.carouselButtons button:hover {
+  border-color: var(--hp-blue);
+  color: var(--hp-blue);
+}
+
+.carouselDots {
+  display: flex;
+  gap: 7px;
+  margin-top: 20px;
+}
+
+.carouselDots button {
+  width: 7px;
+  height: 7px;
+  padding: 0;
+  border: 0;
+  border-radius: 10px;
+  background: #d5dce7;
+  cursor: pointer;
+}
+
+.carouselDots button.activeDot {
+  width: 25px;
+  background: var(--hp-blue);
+}
+
+.managementSection {
+  background: #fff;
+}
+
+.highlightVisual,
+.highlightContent {
+  min-width: 0;
+}
+
+.highlightVisual {
+  animation: highlightFadeIn 500ms ease both;
+}
+
+.highlightContent > .contentEyebrow,
+.highlightContent > h3,
+.highlightContent > p {
+  animation: highlightFadeIn 450ms ease both;
+}
+
+.highlightContent > h3 {
+  animation-delay: 50ms;
+}
+
+.highlightContent > p {
+  animation-delay: 100ms;
+}
+
+.carouselButtons button {
+  transition:
+    transform 200ms ease,
+    background-color 200ms ease,
+    color 200ms ease;
+}
+
+.carouselButtons button:hover {
+  transform: translateY(-2px);
+}
+
+.carouselDots button {
+  transition:
+    width 250ms ease,
+    opacity 250ms ease,
+    background-color 250ms ease;
+}
+
+.carouselDots button.activeDot {
+  width: 28px;
+  background-color: var(--color-yellow);
+  opacity: 1;
+}
+
+@keyframes highlightFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .highlightVisual,
+  .highlightContent > .contentEyebrow,
+  .highlightContent > h3,
+  .highlightContent > p {
+    animation: none;
+  }
+
+  .carouselButtons button,
+  .carouselDots button {
+    transition: none;
+  }
+}
+
+.sectorTabs {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 0 0 15px;
+  border-bottom: 1px solid var(--hp-border);
+  scrollbar-width: thin;
+}
+
+.sectorTabs button {
+  flex: 0 0 auto;
+  padding: 12px 16px;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  color: #5d6b7e;
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 750;
+  transition: all 180ms ease;
+}
+
+.sectorTabs button:hover {
+  color: var(--hp-blue);
+  background: #f3f7fd;
+}
+
+.sectorTabs button.activeTab {
+  border-color: #c7dcf7;
+  color: var(--hp-blue);
+  background: #eaf3ff;
+}
+
+.sectorPanel {
+  padding-top: 30px;
+}
+
+.sectorPanelHeader {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 30px;
+  margin-bottom: 25px;
+}
+
+.sectorPanelHeader h3 {
+  margin: 8px 0 0;
+  font-size: 27px;
+  letter-spacing: -0.035em;
+}
+
+.sectorPanelHeader > p {
+  max-width: 450px;
+  margin: 0;
+  color: var(--hp-muted);
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.projectGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 17px;
+}
+
+.projectCard {
+  display: flex;
+  min-height: 235px;
+  flex-direction: column;
+  padding: 25px;
+  border: 1px solid var(--hp-border);
+  background: #fff;
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.projectCard:hover {
+  transform: translateY(-3px);
+  border-color: #c5d8f1;
+  box-shadow: 0 12px 32px #193c6810;
+}
+
+.projectCardTop,
+.projectCardBottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.projectCardTop > span:first-child {
+  color: var(--hp-blue);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.projectType {
+  padding: 6px 9px;
+  color: #53657d;
+  background: var(--hp-paper);
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.projectCard h4 {
+  margin: 23px 0 10px;
+  font-size: 20px;
+  line-height: 1.35;
+}
+
+.projectCard > p {
+  margin: 0 0 20px;
+  color: var(--hp-muted);
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.projectCardBottom {
+  margin-top: auto;
+  padding-top: 15px;
+  border-top: 1px solid #edf0f5;
+}
+
+.projectStatus {
+  color: #7c650f;
+  font-size: 10px;
+  font-weight: 750;
+}
+
+.projectCardBottom > span:last-child {
+  color: var(--hp-blue);
+  font-size: 18px;
+}
+
+.managementFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 30px;
+  padding: 22px 0;
+  border-top: 1px solid var(--hp-border);
+}
+
+.managementFooter p {
+  max-width: 580px;
+  margin: 0;
+  color: var(--hp-muted);
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+.managementFooter a {
+  flex: 0 0 auto;
+  color: var(--hp-blue);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.closingSection {
+  padding: 76px 0;
+  text-align: center;
+  background: var(--hp-paper);
+}
+
+.closingSection h2 {
+  max-width: 700px;
+  margin: 0 auto;
+  font-size: clamp(31px, 4.3vw, 49px);
+  font-weight: 800;
+  line-height: 1.16;
+  letter-spacing: -0.045em;
+}
+
+.closingSection > div > p:not(.eyebrow) {
+  max-width: 570px;
+  margin: 20px auto 25px;
+  color: var(--hp-muted);
+  font-size: 14px;
+  line-height: 1.9;
+}
+
+.closingSection .buttonPrimary {
+  color: var(--hp-ink);
+}
+
+@media (max-width: 900px) {
+  .heroGrid {
+    gap: 35px;
+  }
+
+  .heroVisual {
+    padding-left: 0;
+  }
+
+  .portraitPlaceholder {
+    min-height: 350px;
+  }
+
+  .heroFloatingCard {
+    right: -8px;
+  }
+
+  .sectionNav > div {
+    gap: 23px;
+  }
+
+  .section {
+    padding: 72px 0;
+  }
+
+  .sectionHeading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 18px;
+    margin-bottom: 32px;
+  }
+
+  .politicalGrid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .politicalStatement {
+    position: static;
+  }
+
+  .highlightContent {
+    padding: 27px;
+  }
+}
+
+@media (max-width: 640px) {
+  .container {
+    width: min(100% - 36px, 1180px);
+  }
+
+  .demoNotice {
+    align-items: flex-start;
+    font-size: 10px;
+    line-height: 1.6;
+  }
+
+  .hero {
+    padding-top: 54px;
+  }
+
+  .heroGrid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .heroCopy {
+    padding-bottom: 0;
+  }
+
+  .hero h1 {
+    font-size: clamp(42px, 12vw, 62px);
+  }
+
+  .heroLead {
+    margin-top: 21px;
+    font-size: 18px;
+  }
+
+  .heroDescription {
+    font-size: 14px;
+  }
+
+  .heroVisual {
+    max-width: 450px;
+    padding: 0 7px 26px 0;
+  }
+
+  .portraitPlaceholder {
+    min-height: 320px;
+  }
+
+  .portraitPlaceholder::before {
+    width: 250px;
+    height: 250px;
+  }
+
+  .portraitPlaceholder::after {
+    width: 320px;
+    height: 320px;
+  }
+
+  .heroFloatingCard {
+    right: -5px;
+    bottom: 0;
+    max-width: 270px;
+    padding: 12px;
+  }
+
+  .heroBottom {
+    flex-wrap: wrap;
+    gap: 9px;
+    margin-top: 38px;
+    font-size: 8px;
+  }
+
+  .heroBottomLine {
+    width: 17px;
+  }
+
+  .sectionNav > div {
+    gap: 20px;
+  }
+
+  .sectionNav a {
+    padding: 15px 0;
+    font-size: 11px;
+  }
+
+  .section {
+    padding: 58px 0;
+  }
+
+  .sectionHeading h2 {
+    font-size: 34px;
+  }
+
+  .sectionIntro {
+    font-size: 13px;
+  }
+
+  .timelineItem {
+    grid-template-columns: 35px minmax(0, 1fr);
+    gap: 10px;
+  }
+
+  .timelineRail span {
+    width: 33px;
+    height: 33px;
+    font-size: 9px;
+  }
+
+  .timelineRail::after {
+    top: 38px;
+  }
+
+  .timelineCard {
+    padding: 21px 18px;
+  }
+
+  .timelineCard h3 {
+    font-size: 18px;
+  }
+
+  .politicalStatement {
+    padding: 25px;
+  }
+
+  .politicalStatement h3 {
+    font-size: 25px;
+  }
+
+  .highlightCarousel {
+    grid-template-columns: 1fr;
+  }
+
+  .highlightVisual {
+    min-height: 235px;
+    padding: 23px;
+  }
+
+  .highlightNumber {
+    font-size: 95px;
+  }
+
+  .highlightContent {
+    min-height: 310px;
+    padding: 24px;
+  }
+
+  .highlightContent h3 {
+    font-size: 29px;
+  }
+
+  .sectorTabs {
+    gap: 5px;
+  }
+
+  .sectorTabs button {
+    padding: 10px 12px;
+    font-size: 11px;
+  }
+
+  .sectorPanelHeader {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .sectorPanelHeader h3 {
+    font-size: 24px;
+  }
+
+  .projectGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .projectCard {
+    min-height: 210px;
+    padding: 21px;
+  }
+
+  .managementFooter {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 13px;
+  }
+
+  .closingSection {
+    padding: 58px 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page *,
+  .page *::before,
+  .page *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+/* ============================================
+   CONTENEDORES Y SECCIONES
+   ============================================ */
+
+.page .container {
+  width: min(calc(100% - 40px), var(--container-width));
+  margin-inline: auto;
+}
+
+.page .section {
+  padding-block: var(--space-11);
+}
+
+@media (max-width: 1023px) {
+  .page .section {
+    padding-block: var(--space-9);
+  }
+}
+
+@media (max-width: 767px) {
+  .page .section {
+    padding-block: var(--space-8);
+  }
+}
+
+@media (max-width: 479px) {
+  .page .container {
+    width: calc(100% - 32px);
+  }
+}

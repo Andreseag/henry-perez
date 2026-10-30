@@ -69,6 +69,11 @@ export interface Config {
   collections: {
     users: User;
     media: Media;
+    'resource-files': ResourceFile;
+    resources: Resource;
+    'team-applications': TeamApplication;
+    'posada-applications': PosadaApplication;
+    gestiones: Gestione;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -78,17 +83,28 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    'resource-files': ResourceFilesSelect<false> | ResourceFilesSelect<true>;
+    resources: ResourcesSelect<false> | ResourcesSelect<true>;
+    'team-applications': TeamApplicationsSelect<false> | TeamApplicationsSelect<true>;
+    'posada-applications': PosadaApplicationsSelect<false> | PosadaApplicationsSelect<true>;
+    gestiones: GestionesSelect<false> | GestionesSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
   };
   db: {
-    defaultIDType: string;
+    defaultIDType: number;
   };
   fallbackLocale: null;
-  globals: {};
-  globalsSelect: {};
+  globals: {
+    'site-settings': SiteSetting;
+    home: Home;
+  };
+  globalsSelect: {
+    'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
+    home: HomeSelect<false> | HomeSelect<true>;
+  };
   locale: null;
   widgets: {
     collections: CollectionsWidget;
@@ -122,7 +138,7 @@ export interface UserAuthOperations {
  * via the `definition` "users".
  */
 export interface User {
-  id: string;
+  id: number;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -130,6 +146,7 @@ export interface User {
   resetPasswordExpiration?: string | null;
   salt?: string | null;
   hash?: string | null;
+  resetPasswordRequestedAt?: string | null;
   loginAttempts?: number | null;
   lockUntil?: string | null;
   sessions?:
@@ -147,8 +164,36 @@ export interface User {
  * via the `definition` "media".
  */
 export interface Media {
-  id: string;
+  id: number;
+  /**
+   * Descripción de la imagen para accesibilidad y SEO.
+   */
   alt: string;
+  caption?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+}
+/**
+ * Archivos descargables de la biblioteca de recursos.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "resource-files".
+ */
+export interface ResourceFile {
+  id: number;
+  /**
+   * Opcional; útil cuando el archivo es una imagen.
+   */
+  alt?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -163,10 +208,199 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "resources".
+ */
+export interface Resource {
+  id: number;
+  title: string;
+  slug: string;
+  description?: string | null;
+  category: 'social' | 'stories' | 'photos' | 'documents' | 'other';
+  coverImage?: (number | null) | Media;
+  file: number | ResourceFile;
+  status: 'draft' | 'published';
+  /**
+   * Los valores menores aparecen primero.
+   */
+  sortOrder?: number | null;
+  publishedAt?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Personas interesadas en formar parte del equipo.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "team-applications".
+ */
+export interface TeamApplication {
+  id: number;
+  fullName: string;
+  email: string;
+  phone: string;
+  city: string;
+  areaOfInterest: 'communications' | 'community' | 'social-management' | 'volunteering' | 'professional' | 'other';
+  professionalProfile?: string | null;
+  linkedin?: string | null;
+  message: string;
+  dataProcessingConsent: boolean;
+  status: 'pending' | 'in-review' | 'contacted' | 'accepted' | 'not-selected';
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Solicitudes de alojamiento. Contiene datos personales y posiblemente información sensible.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "posada-applications".
+ */
+export interface PosadaApplication {
+  id: number;
+  patientName: string;
+  patientPhone: string;
+  patientDocument: string;
+  patientCase: string;
+  municipality:
+    | 'Villanueva'
+    | 'Aguazul'
+    | 'Chámeza'
+    | 'Hato Corozal'
+    | 'La Salina'
+    | 'Maní'
+    | 'Monterrey'
+    | 'Nunchía'
+    | 'Orocué'
+    | 'Paz de Ariporo'
+    | 'Pore'
+    | 'Recetor'
+    | 'Sabanalarga'
+    | 'Sácama'
+    | 'San Luis de Palenque'
+    | 'Támara'
+    | 'Tauramena'
+    | 'Trinidad'
+    | 'Yopal';
+  hospital: 'Hospital Regional Orinoquía' | 'Hospital Materno Infantil' | 'CLÍNICA CASANARE' | 'HORO' | 'OTRO';
+  otherHospital?: string | null;
+  eps: 'CAPRESOCA' | 'NUEVA EPS' | 'SOAT' | 'EPS SANITAS' | 'COLMÉDICA' | 'COOSALUD' | 'OTRO';
+  otherEps?: string | null;
+  sisben?:
+    | (
+        | 'ESTRATO 0/1'
+        | 'ESTRATO 1/2'
+        | 'ESTRATO 3/4'
+        | 'ESTRATO 5 O SUPERIOR'
+        | 'GRUPO A'
+        | 'GRUPO B'
+        | 'GRUPO C'
+        | 'GRUPO D'
+        | 'OTRO'
+      )
+    | null;
+  companionName?: string | null;
+  companionDocument?: string | null;
+  companionPhone?: string | null;
+  relationship?: string | null;
+  admissionDate: string;
+  observations?: string | null;
+  privacyConsent: boolean;
+  status: 'received' | 'reviewing' | 'contacted' | 'approved' | 'not-approved' | 'closed';
+  notificationStatus?: ('pending' | 'sent' | 'failed') | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Administra las iniciativas, proyectos y resultados de Henry Pérez.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "gestiones".
+ */
+export interface Gestione {
+  id: number;
+  title: string;
+  /**
+   * Ejemplo: mejoramiento-de-instituciones-educativas
+   */
+  slug: string;
+  sector:
+    | 'educacion'
+    | 'salud'
+    | 'infraestructura'
+    | 'desarrollo-social'
+    | 'seguridad'
+    | 'empleo'
+    | 'medio-ambiente'
+    | 'otros';
+  type: 'proyecto' | 'iniciativa' | 'resultado' | 'propuesta';
+  gestionStatus: 'propuesta' | 'en-gestion' | 'en-ejecucion' | 'finalizada' | 'suspendida' | 'por-verificar';
+  summary: string;
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  heroImage?: (number | null) | Media;
+  gallery?:
+    | {
+        image: number | Media;
+        caption?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  startDate?: string | null;
+  endDate?: string | null;
+  /**
+   * Describe su rol específico y evita atribuirle acciones sin evidencia.
+   */
+  henryRole?: string | null;
+  results?:
+    | {
+        label: string;
+        value?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  documents?:
+    | {
+        title: string;
+        file: number | ResourceFile;
+        id?: string | null;
+      }[]
+    | null;
+  sources?:
+    | {
+        title: string;
+        url?: string | null;
+        notes?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Incluye esta gestión en el carrusel de destacados.
+   */
+  featured?: boolean | null;
+  metaTitle?: string | null;
+  metaDescription?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
-  id: string;
+  id: number;
   key: string;
   data:
     | {
@@ -183,20 +417,40 @@ export interface PayloadKv {
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
-  id: string;
+  id: number;
   document?:
     | ({
         relationTo: 'users';
-        value: string | User;
+        value: number | User;
       } | null)
     | ({
         relationTo: 'media';
-        value: string | Media;
+        value: number | Media;
+      } | null)
+    | ({
+        relationTo: 'resource-files';
+        value: number | ResourceFile;
+      } | null)
+    | ({
+        relationTo: 'resources';
+        value: number | Resource;
+      } | null)
+    | ({
+        relationTo: 'team-applications';
+        value: number | TeamApplication;
+      } | null)
+    | ({
+        relationTo: 'posada-applications';
+        value: number | PosadaApplication;
+      } | null)
+    | ({
+        relationTo: 'gestiones';
+        value: number | Gestione;
       } | null);
   globalSlug?: string | null;
   user: {
     relationTo: 'users';
-    value: string | User;
+    value: number | User;
   };
   updatedAt: string;
   createdAt: string;
@@ -206,10 +460,10 @@ export interface PayloadLockedDocument {
  * via the `definition` "payload-preferences".
  */
 export interface PayloadPreference {
-  id: string;
+  id: number;
   user: {
     relationTo: 'users';
-    value: string | User;
+    value: number | User;
   };
   key?: string | null;
   value?:
@@ -229,7 +483,7 @@ export interface PayloadPreference {
  * via the `definition` "payload-migrations".
  */
 export interface PayloadMigration {
-  id: string;
+  id: number;
   name?: string | null;
   batch?: number | null;
   updatedAt: string;
@@ -247,6 +501,7 @@ export interface UsersSelect<T extends boolean = true> {
   resetPasswordExpiration?: T;
   salt?: T;
   hash?: T;
+  resetPasswordRequestedAt?: T;
   loginAttempts?: T;
   lockUntil?: T;
   sessions?:
@@ -263,6 +518,7 @@ export interface UsersSelect<T extends boolean = true> {
  */
 export interface MediaSelect<T extends boolean = true> {
   alt?: T;
+  caption?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -274,6 +530,138 @@ export interface MediaSelect<T extends boolean = true> {
   height?: T;
   focalX?: T;
   focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "resource-files_select".
+ */
+export interface ResourceFilesSelect<T extends boolean = true> {
+  alt?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "resources_select".
+ */
+export interface ResourcesSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  description?: T;
+  category?: T;
+  coverImage?: T;
+  file?: T;
+  status?: T;
+  sortOrder?: T;
+  publishedAt?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "team-applications_select".
+ */
+export interface TeamApplicationsSelect<T extends boolean = true> {
+  fullName?: T;
+  email?: T;
+  phone?: T;
+  city?: T;
+  areaOfInterest?: T;
+  professionalProfile?: T;
+  linkedin?: T;
+  message?: T;
+  dataProcessingConsent?: T;
+  status?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "posada-applications_select".
+ */
+export interface PosadaApplicationsSelect<T extends boolean = true> {
+  patientName?: T;
+  patientPhone?: T;
+  patientDocument?: T;
+  patientCase?: T;
+  municipality?: T;
+  hospital?: T;
+  otherHospital?: T;
+  eps?: T;
+  otherEps?: T;
+  sisben?: T;
+  companionName?: T;
+  companionDocument?: T;
+  companionPhone?: T;
+  relationship?: T;
+  admissionDate?: T;
+  observations?: T;
+  privacyConsent?: T;
+  status?: T;
+  notificationStatus?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "gestiones_select".
+ */
+export interface GestionesSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  sector?: T;
+  type?: T;
+  gestionStatus?: T;
+  summary?: T;
+  content?: T;
+  heroImage?: T;
+  gallery?:
+    | T
+    | {
+        image?: T;
+        caption?: T;
+        id?: T;
+      };
+  startDate?: T;
+  endDate?: T;
+  henryRole?: T;
+  results?:
+    | T
+    | {
+        label?: T;
+        value?: T;
+        id?: T;
+      };
+  documents?:
+    | T
+    | {
+        title?: T;
+        file?: T;
+        id?: T;
+      };
+  sources?:
+    | T
+    | {
+        title?: T;
+        url?: T;
+        notes?: T;
+        id?: T;
+      };
+  featured?: T;
+  metaTitle?: T;
+  metaDescription?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -314,6 +702,286 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * Configuración general y datos de contacto del sitio web.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-settings".
+ */
+export interface SiteSetting {
+  id: number;
+  siteName: string;
+  description?: string | null;
+  logo?: (number | null) | Media;
+  email?: string | null;
+  phone?: string | null;
+  address?: string | null;
+  socialLinks?: {
+    /**
+     * URL completa del perfil.
+     */
+    x?: string | null;
+    threads?: string | null;
+    youtube?: string | null;
+    instagram?: string | null;
+    facebook?: string | null;
+    tiktok?: string | null;
+    /**
+     * Puede ser una URL https://wa.me/...
+     */
+    whatsapp?: string | null;
+  };
+  footerText?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Contenido de la página principal del sitio.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home".
+ */
+export interface Home {
+  id: number;
+  hero: {
+    eyebrow?: string | null;
+    title: string;
+    description?: string | null;
+    descriptionRichText?: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
+    image?: (number | null) | Media;
+    primaryButton?: {
+      label?: string | null;
+      url?: string | null;
+    };
+    secondaryButton?: {
+      label?: string | null;
+      url?: string | null;
+    };
+  };
+  about?: {
+    title?: string | null;
+    description?: string | null;
+    image?: (number | null) | Media;
+  };
+  trajectory?:
+    | {
+        year: string;
+        title: string;
+        description?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  management?: {
+    title?: string | null;
+    description?: string | null;
+    /**
+     * Áreas o temas principales que quieres destacar en el sitio.
+     */
+    areas?:
+      | {
+          title: string;
+          description?: string | null;
+          image?: (number | null) | Media;
+          /**
+           * URL opcional. Puede ser una sección interna o una página externa.
+           */
+          url?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  /**
+   * Proyectos e iniciativas que aparecerán en la página de inicio.
+   */
+  projects?:
+    | {
+        title: string;
+        description?: string | null;
+        /**
+         * Ejemplo: Infraestructura, Comunidad, Educación, Desarrollo social.
+         */
+        category?: string | null;
+        image?: (number | null) | Media;
+        /**
+         * URL opcional hacia una página o recurso relacionado.
+         */
+        url?: string | null;
+        /**
+         * El proyecto destacado ocupará un espacio visual mayor.
+         */
+        featured?: boolean | null;
+        id?: string | null;
+      }[]
+    | null;
+  community: {
+    title: string;
+    description?: string | null;
+    image?: (number | null) | Media;
+  };
+  posada?: {
+    title?: string | null;
+    description?: string | null;
+    image?: (number | null) | Media;
+    buttonLabel?: string | null;
+    buttonUrl?: string | null;
+  };
+  joinTeam?: {
+    title?: string | null;
+    description?: string | null;
+    buttonLabel?: string | null;
+  };
+  resources: {
+    enabled?: boolean | null;
+    title: string;
+    description?: string | null;
+    limit?: number | null;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-settings_select".
+ */
+export interface SiteSettingsSelect<T extends boolean = true> {
+  siteName?: T;
+  description?: T;
+  logo?: T;
+  email?: T;
+  phone?: T;
+  address?: T;
+  socialLinks?:
+    | T
+    | {
+        x?: T;
+        threads?: T;
+        youtube?: T;
+        instagram?: T;
+        facebook?: T;
+        tiktok?: T;
+        whatsapp?: T;
+      };
+  footerText?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home_select".
+ */
+export interface HomeSelect<T extends boolean = true> {
+  hero?:
+    | T
+    | {
+        eyebrow?: T;
+        title?: T;
+        description?: T;
+        descriptionRichText?: T;
+        image?: T;
+        primaryButton?:
+          | T
+          | {
+              label?: T;
+              url?: T;
+            };
+        secondaryButton?:
+          | T
+          | {
+              label?: T;
+              url?: T;
+            };
+      };
+  about?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+      };
+  trajectory?:
+    | T
+    | {
+        year?: T;
+        title?: T;
+        description?: T;
+        id?: T;
+      };
+  management?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        areas?:
+          | T
+          | {
+              title?: T;
+              description?: T;
+              image?: T;
+              url?: T;
+              id?: T;
+            };
+      };
+  projects?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        category?: T;
+        image?: T;
+        url?: T;
+        featured?: T;
+        id?: T;
+      };
+  community?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+      };
+  posada?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+        buttonLabel?: T;
+        buttonUrl?: T;
+      };
+  joinTeam?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        buttonLabel?: T;
+      };
+  resources?:
+    | T
+    | {
+        enabled?: T;
+        title?: T;
+        description?: T;
+        limit?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
