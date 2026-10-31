@@ -170,6 +170,7 @@ export interface Media {
    */
   alt: string;
   caption?: string | null;
+  _objectKey?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -194,6 +195,7 @@ export interface ResourceFile {
    * Opcional; útil cuando el archivo es una imagen.
    */
   alt?: string | null;
+  _objectKey?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -519,6 +521,7 @@ export interface UsersSelect<T extends boolean = true> {
 export interface MediaSelect<T extends boolean = true> {
   alt?: T;
   caption?: T;
+  _objectKey?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -537,6 +540,7 @@ export interface MediaSelect<T extends boolean = true> {
  */
 export interface ResourceFilesSelect<T extends boolean = true> {
   alt?: T;
+  _objectKey?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
